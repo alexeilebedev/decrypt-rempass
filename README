@@ -1,4 +1,5 @@
 This is a set of classes for decrypting databases created by the "Remember Passwords" android app.
+The app is plan java, and runs from command line.
 published by Maryna Biletska, but apparently written by Eugene Beletskiy.
 
 I used this app a long time ago, and even had a backed up passwords file e-mailed to my gmail account.
