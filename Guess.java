@@ -3,7 +3,7 @@ import java.io.IOException;
 // --------------------------------------------------------------------------------
 
 // Guess password given a string encrypted with "remember passwords"
-// First arg: encrypted text
+// Usage: java Guess "encrypted text"
 class Guess {
     long _starttime;
     Decrypt _decrypt;
@@ -21,12 +21,12 @@ class Guess {
 	    byte[] pass = _pass.getBytes();
 	    byte[] output=_decrypt.decrypt(bytes,pass);
 	    if (output!=null && _pass.likelyStringQ(output)) {
-		System.out.println(String.format("decrypt  input:'%s'  password:%s  output:%s",text,new String(pass),new String(output)));
+		System.out.println(String.format("guess.likely  input:'%s'  password:%s  output:%s",text,new String(pass),new String(output)));
 	    }
 	    _pass.next();
 	    if (i % 1000000 == 0) {
 		long elapsed = System.currentTimeMillis()-_starttime;
-		System.out.println(String.format("decrypt.progress  iter:%d  elapsed:%s  guess:%s",i,elapsed*1e-3,new String(pass)));
+		System.out.println(String.format("guess.progress  iter:%d  elapsed:%s  guess:%s",i,elapsed*1e-3,new String(pass)));
 	    }
 	    i++;
 	} while (true);
