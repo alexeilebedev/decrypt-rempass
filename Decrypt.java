@@ -32,7 +32,7 @@ class Decrypt {
 	}
     }
 
-    // Decrypt BYTES according to PASSWORd and return result
+    // Decrypt BYTES according to PASSWORD and return result
     public byte[] decrypt(byte[] bytes, byte[] password) {
 	byte[] ret=null;
 	try {
@@ -42,6 +42,19 @@ class Decrypt {
 	} catch (Exception e) {
 	}
 	return ret;
+    }
+
+    // Decrypt string based on current password setting
+    String decryptString(String text) {
+	byte[] output=null;
+	try {
+	    byte[] bytes = undoBase64(text);
+	    byte[] pass = _pass.getBytes();
+	    output= decrypt(bytes,pass);
+	} catch (IllegalArgumentException e) {
+	    // from Base64.decode
+	}
+	return output==null ? null : new String(output);
     }
 
     byte[] undoBase64(String text) {

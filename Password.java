@@ -14,9 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import java.io.IOException;
 
+// Password, stored in a way suitable for iterating over.
 class Password {
     static char _outchars[]="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX0123456789,./<>?;':\"[]{}|-=_+`~!@#$%^&*()".toCharArray();
-    static char _passchars[]="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX0123456789,./<>?;':\"[]{}|-=_+`~!@#$%^&*()".toCharArray();
+    // password space
+    static char _passchars[]=_outchars;
     int[] _idata;// current password -- array of indices into _passchars
     char[] _data;// temporary output var -- chars of password 
     int _beg;// valid range in _idata,_data

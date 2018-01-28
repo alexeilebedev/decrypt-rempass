@@ -16,19 +16,6 @@ class DecryptJson {
 	return new String(Files.readAllBytes(Paths.get(path)));
     }
 
-    // Decrypt string based on currente password setting
-    String decryptString(String text) {
-	byte[] output=null;
-	try {
-	    byte[] bytes = _decrypt.undoBase64(text);
-	    byte[] pass = _decrypt._pass.getBytes();
-	    output= _decrypt.decrypt(bytes,pass);
-	} catch (IllegalArgumentException e) {
-	    // from Base64.decode
-	}
-	return output==null ? null : new String(output);
-    }
-
     // Destructively decrypt attribute ATTR in object OBJ
     // (and write it back)
     void decryptAttr(JSONObject obj, String attr) {
@@ -36,7 +23,7 @@ class DecryptJson {
 	    if (obj != null) {
 		String value = obj.getString(attr);
 		if (value != null) {
-		    String newstr = decryptString(value);
+		    String newstr = _decrypt.decryptString(value);
 		    if (newstr != null) {
 			obj.put(attr, newstr);
 		    }
