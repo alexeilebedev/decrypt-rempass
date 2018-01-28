@@ -16,42 +16,39 @@ class DecryptJson {
 	return new String(Files.readAllBytes(Paths.get(path)));
     }
 
-    // Destructively decrypt attribute ATTR in object OBJ
-    // (and write it back)
-    void decryptAttr(JSONObject obj, String attr) {
+    // Decrypt attribute ATTR in object OBJ and return it
+    String decryptAttr(JSONObject obj, String attr) {
+	String ret=attr;
 	try {
-	    if (obj != null) {
-		String value = obj.getString(attr);
-		if (value != null) {
-		    String newstr = _decrypt.decryptString(value);
-		    if (newstr != null) {
-			obj.put(attr, newstr);
-		    }
+	    String value = obj.getString(attr);
+	    if (value != null) {
+		String newstr = _decrypt.decryptString(value);
+		if (newstr != null) {
+		    ret=newstr;
 		}
 	    }
 	} catch (JSONException e) {
 	}
+	return ret;
     }
 
     // Decrypt "remember passwords" database file at path PATH
-    // and print new result to screen
+    // and print results to stdout
     void decryptJsonFile(String path) {
 	try {
 	    String text=readFile(path);
-	    //System.out.println(text);
 	    JSONObject obj = new JSONObject(text);
 	    JSONArray array = obj.getJSONArray("list");
 	    if (array != null) {
 		for(int i = 0 ; i < array.length() ; i++){
 		    JSONObject elem = array.getJSONObject(i);
-		    decryptAttr(elem,"mTitle");
-		    decryptAttr(elem,"mLogin");
-		    decryptAttr(elem,"mPassword");
-		    decryptAttr(elem,"mNotes");
+		    String title=decryptAttr(elem,"mTitle");
+		    String login=decryptAttr(elem,"mLogin");
+		    String pass=decryptAttr(elem,"mPassword");
+		    String notes=decryptAttr(elem,"mNotes");
+		    System.out.println(String.format("decryptjson.entry  title:'%s'  login:'%s'  password:'%s'  notes:'%s'",title,login,pass,notes));
 		}
 	    }
-	    // print decrypted json
-	    System.out.println(obj.toString(1));
 	} catch (IOException e) {
 	} catch (JSONException e) {
 	}
