@@ -22,16 +22,16 @@ using MD5 of user passsword as the key. Same string maps the the same ciphertext
 In this directory are several classes:
 
 Build all:
-    make
+    `make`
 
 brute force iteration to find a password that plausibly decrypts given string
-    java Guess "<base64 string>"
+    `java Guess "<base64 string>"`
 
 decrypt a Remember Passwords database and print resulting Json to stdout
-    java DecryptJson <password> <path>
+    `java DecryptJson <password> <path>`
 
 decrypt a single string
-    java DecryptString <password> <encrypted string>
+    `java DecryptString <password> <encrypted string>`
 
 I guess a standard disclaimer is in order -- I don't condone hacking of other people in any way.
 Use this on your own data only.
